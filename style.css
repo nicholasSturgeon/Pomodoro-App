@@ -39,8 +39,13 @@ body {
 }
 
 @keyframes gridMove {
-    0% {transform: translate(0,0);}
-    100% {transform: translate(40px, 40px);}
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(40px, 40px);
+    }
 }
 
 .container {
@@ -219,4 +224,91 @@ body {
     font-weight: 300;
     max-width: 3rem;
     text-align: center;
+}
+
+.stats {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    opacity: 0.6;
+    flex-wrap: wrap;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 200;
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.notification {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    background: var(--btn-background);
+    border: 1px solid var(--btn-background);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    transform: translate(400px);
+    transition: transform 0.3s ease;
+    z-index: 100;
+}
+
+.notification.show {
+    transform: translate(0);
+}
+
+@media (max-width: 768px) {
+    .progress-ring {
+        width: 250px;
+        height: 250px;
+    }
+
+    .progress-ring-circle,
+    .progress-ring-progress {
+        r: 120;
+        cx: 125;
+        cy: 125;
+        stroke-dasharray: 754;
+        stroke-dashoffset: 754;
+    }
+
+    .time {
+        font-size: 2.5rem;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    .setting-controls,
+    stats {
+        gap: 1rem;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    .pulsing {
+        animation: pulse 1s ease-in-out infinite;
+    }
 }
