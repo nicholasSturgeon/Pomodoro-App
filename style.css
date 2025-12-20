@@ -1,0 +1,222 @@
+:root {
+    --primary-bg-color: #1c0b27;
+    --text-color: #c9cabc;
+    --btn-background-color: rgba(255, 255, 255, 0.05);
+    --btn-color: rgba(255, 255, 255, 0.1);
+    --btn-hover-color: rgba(255, 255, 255, 0.3);
+    --stroke-work-color: #ff6b6b;
+    --stroke-break-color: #4ecdc4;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--primary-bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.background-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.02;
+    background-image: linear-gradient(var(--primary-bg-color) 1px, transparent, 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent, 1px);
+    background-size: 40px, 40px;
+    animation: gridMove 30s linear infinite;
+}
+
+@keyframes gridMove {
+    0% {transform: translate(0,0);}
+    100% {transform: translate(40px, 40px);}
+}
+
+.container {
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    padding: 2rem;
+}
+
+.timer-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 3rem;
+}
+
+.progress-ring {
+    transform: rotate(-90deg);
+    width: 300px;
+    height: 300px;
+}
+
+.progress-ring-circle {
+    stroke: var(--btn-color);
+    stroke-width: 6;
+    fill: transparent;
+    r: 145;
+    cx: 150;
+    cy: 150;
+}
+
+.progress-ring-progress {
+    stroke: white;
+    stroke-width: 6;
+    stroke-dasharray: 911;
+    stroke-dashoffset: 911;
+    transition: stroke-dashoffset 1s ease;
+    stroke-linecap: round;
+}
+
+.progress-ring-progress.work {
+    stroke: var(--stroke-work-color);
+}
+
+.progress-ring-progress.break {
+    stroke: var(--stroke-break-color);
+}
+
+.timer-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time {
+    font-size: 3.5rem;
+    font-weight: 200;
+    letter-spacing: 0.1rem;
+    margin-bottom: 0.5rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.session-type {
+    font-size: 1rem;
+    font-weight: 300;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.controls {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    background: var(--btn-background-color);
+    border: 1px solid var(--btn-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: relative;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--btn-color);
+    transition: left 0.3s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    border-color: var(--btn-hover-color);
+    background-color: var(--btn-color);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    border-color: var(--stroke-work-color);
+    color: var(--stroke-work-color);
+}
+
+.settings {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.setting-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.setting-label {
+    font-size: 0.8rem;
+    font-weight: 300;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+.setting-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.setting-btn {
+    background: var(--btn-background-color);
+    border: 1px solid var(--btn-color);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.setting-btn:hover {
+    background: var(--btn-color);
+    border-color: var(--btn-hover-color);
+}
+
+.setting-value {
+    font-size: 1rem;
+    font-weight: 300;
+    max-width: 3rem;
+    text-align: center;
+}
