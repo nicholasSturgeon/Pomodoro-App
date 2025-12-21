@@ -2,7 +2,7 @@
     --primary-bg-color: #1c0b27;
     --text-color: #c9cabc;
     --btn-background-color: rgba(255, 255, 255, 0.05);
-    --btn-color: rgba(255, 255, 255, 0.1);
+    --btn-color: rgba(177, 72, 72, 0.1);
     --btn-hover-color: rgba(255, 255, 255, 0.3);
     --stroke-work-color: #ff6b6b;
     --stroke-break-color: #4ecdc4;
@@ -79,6 +79,10 @@ body {
 .progress-ring-progress {
     stroke: white;
     stroke-width: 6;
+    fill: transparent;
+    r: 145;
+    cx: 150;
+    cy: 150;
     stroke-dasharray: 911;
     stroke-dashoffset: 911;
     transition: stroke-dashoffset 1s ease;
@@ -268,6 +272,7 @@ body {
     transform: translate(0);
 }
 
+/*Adds some sort of black circle around progress ring*/
 @media (max-width: 768px) {
     .progress-ring {
         width: 250px;
