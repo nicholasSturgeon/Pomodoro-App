@@ -53,12 +53,14 @@ function updateStats() {
 
 function showNotification(text) {
     notificationText.textContent = text;
-    notificationText.classList.add('show');
+    notification.classList.add('show');
     setTimeout(() => notification.classList.remove('show'), 4000);
 }
 
+//function playNotification sound() {}
+
 function startTimer() {
-    if(!isRunning) {
+    if (!isRunning) {
         isRunning = true;
         startBtn.textContent = 'Running...';
         startBtn.classList.add('pulsing');
@@ -66,15 +68,15 @@ function startTimer() {
             currentTime--;
             updateDisplay();
             updateProgress();
-            if(currentTime <= 0) {
-                sessionComplete()
+            if (currentTime <= 0) {
+                sessionComplete();
             }
         }, 1000);
     }
 }
 
 function pauseTimer() {
-    if(isRunning) {
+    if (isRunning) {
         isRunning = false;
         clearInterval(timer);
         startBtn.textContent = 'Start';
@@ -84,13 +86,12 @@ function pauseTimer() {
 
 function resetTimer() {
     pauseTimer();
-    if(isWorkSession) {
-        currentTime = workTimer * 60;
-    }else {
+    if (isWorkSession) {
+        currentTime = workTime * 60;
+    } else {
         const isLongBreak = sessionCount % 4 === 0;
         currentTime = isLongBreak ? longBreakTime * 60 : breakTime * 60;
     }
-
     totalTime = currentTime;
     updateDisplay();
     updateProgress();
@@ -103,22 +104,24 @@ function skipSession() {
 
 function sessionComplete() {
     pauseTimer();
-    if(isWorkSession) {
+    if (isWorkSession) {
         completedSessions++;
         sessionCount++;
         currentStreak++;
         totalMinutes += workTime;
         showNotification('Work session completed! Time for a break.');
-    }else {
+    } else {
         showNotification('Break completed! Ready to work?')
     }
+
     isWorkSession = !isWorkSession;
 
-    if(isWorkSession) {
+    if (isWorkSession) {
         currentTime = workTime * 60;
         progress.classList.remove('break');
+        progress.classList.add('work');
         sessionType.textContent = 'Work Session';
-    }else {
+    } else {
         const isLongBreak = sessionCount % 4 === 0;
         currentTime = isLongBreak ? longBreakTime * 60 : breakTime * 60;
         progress.classList.remove('work');
@@ -130,30 +133,31 @@ function sessionComplete() {
     updateDisplay();
     updateProgress();
     updateStats();
+    //playNotificationSound();
 }
 
 function adjustTime(type, delta) {
-    if(isRunning) return;
+    if (isRunning) return;
 
-    if(type === 'work') {
+    if (type === 'work') {
         workTime = Math.min(60, Math.max(1, workTime + delta));
         workTimeDisplay.textContent = workTime;
-        if(isWorkSession) {
+        if (isWorkSession) {
             currentTime = workTime * 60;
             totalTime = currentTime;
 
-        }else if (type === 'break') {
-            breakTime =  Math.min(30, Math.max(1, workTime + delta));
-            breakTimeDispla.textContent = breakTime;
-            if(!isWorkSession && sessionCount % 4 !== 0) {
+        } else if (type === 'break') {
+            breakTime = Math.min(30, Math.max(1, breakTime + delta));
+            breakTimeDisplay.textContent = breakTime;
+            if (!isWorkSession && sessionCount % 4 !== 0) {
                 currentTime = breakTime * 60;
                 totalTime = currentTime;
             }
 
-        }else if (type === 'longBreak') {
-            longBreakTime =  Math.min(60, Math.max(5, workTime + delta));
-            longBreakTimeDispla.textContent = longBreakTime;
-            if(!isWorkSession && sessionCount % 4 == 0) {
+        } else if (type === 'longBreak') {
+            longBreakTime = Math.min(60, Math.max(5, longBreakTime + delta));
+            longBreakTimeDisplay.textContent = longBreakTime;
+            if (!isWorkSession && sessionCount % 4 == 0) {
                 currentTime = longBreakTime * 60;
                 totalTime = currentTime;
             }
@@ -173,10 +177,10 @@ document.addEventListener('DOMContentLoaded', () => {
     resetBtn.addEventListener('click', resetTimer);
     skipBtn.addEventListener('click', skipSession);
 
-    document.getElementById('workPlus').addEventListener('click', () => adjustTime('work'), 1);
-    document.getElementById('workMinus').addEventListener('click', () => adjustTime('work'), -1);
-    document.getElementById('breakPlus').addEventListener('click', () => adjustTime('break'), 1);
-    document.getElementById('breakMinus').addEventListener('click', () => adjustTime('break'), -1);
-    document.getElementById('longBreakPlus').addEventListener('click', () => adjustTime('longBreak'), 1);
-    document.getElementById('longBreakMinus').addEventListener('click', () => adjustTime('longBreak'), -1);
-})
+    document.getElementById('workPlus').addEventListener('click', () => adjustTime('work', 1));
+    document.getElementById('workMinus').addEventListener('click', () => adjustTime('work', -1));
+    document.getElementById('breakPlus').addEventListener('click', () => adjustTime('break', 1));
+    document.getElementById('breakMinus').addEventListener('click', () => adjustTime('break', -1));
+    document.getElementById('longBreakPlus').addEventListener('click', () => adjustTime('longBreak', 1));
+    document.getElementById('longBreakMinus').addEventListener('click', () => adjustTime('longBreak', -1));
+});
