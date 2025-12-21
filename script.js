@@ -111,7 +111,7 @@ function sessionComplete() {
         totalMinutes += workTime;
         showNotification('Work session completed! Time for a break.');
     } else {
-        showNotification('Break completed! Ready to work?')
+        showNotification('Break completed! Ready to work?');
     }
 
     isWorkSession = !isWorkSession;
@@ -145,28 +145,27 @@ function adjustTime(type, delta) {
         if (isWorkSession) {
             currentTime = workTime * 60;
             totalTime = currentTime;
+        }
+    } else if (type === 'break') {
+        breakTime = Math.min(30, Math.max(1, breakTime + delta));
+        breakTimeDisplay.textContent = breakTime;
+        if (!isWorkSession && sessionCount % 4 !== 0) {
+            currentTime = breakTime * 60;
+            totalTime = currentTime;
+        }
 
-        } else if (type === 'break') {
-            breakTime = Math.min(30, Math.max(1, breakTime + delta));
-            breakTimeDisplay.textContent = breakTime;
-            if (!isWorkSession && sessionCount % 4 !== 0) {
-                currentTime = breakTime * 60;
-                totalTime = currentTime;
-            }
-
-        } else if (type === 'longBreak') {
-            longBreakTime = Math.min(60, Math.max(5, longBreakTime + delta));
-            longBreakTimeDisplay.textContent = longBreakTime;
-            if (!isWorkSession && sessionCount % 4 == 0) {
-                currentTime = longBreakTime * 60;
-                totalTime = currentTime;
-            }
+    } else if (type === 'longBreak') {
+        longBreakTime = Math.min(60, Math.max(5, longBreakTime + delta));
+        longBreakTimeDisplay.textContent = longBreakTime;
+        if (!isWorkSession && sessionCount % 4 == 0) {
+            currentTime = longBreakTime * 60;
+            totalTime = currentTime;
         }
     }
-
     updateDisplay();
     updateProgress();
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
     updateDisplay();
@@ -181,6 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('workMinus').addEventListener('click', () => adjustTime('work', -1));
     document.getElementById('breakPlus').addEventListener('click', () => adjustTime('break', 1));
     document.getElementById('breakMinus').addEventListener('click', () => adjustTime('break', -1));
-    document.getElementById('longBreakPlus').addEventListener('click', () => adjustTime('longBreak', 1));
-    document.getElementById('longBreakMinus').addEventListener('click', () => adjustTime('longBreak', -1));
+    document.getElementById('longBreakPlus').addEventListener('click', () => adjustTime('longBreakTime', 1));
+    document.getElementById('longBreakMinus').addEventListener('click', () => adjustTime('longBreakTime', -1));
 });
