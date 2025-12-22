@@ -180,6 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('workMinus').addEventListener('click', () => adjustTime('work', -1));
     document.getElementById('breakPlus').addEventListener('click', () => adjustTime('break', 1));
     document.getElementById('breakMinus').addEventListener('click', () => adjustTime('break', -1));
-    document.getElementById('longBreakPlus').addEventListener('click', () => adjustTime('longBreakTime', 1));
-    document.getElementById('longBreakMinus').addEventListener('click', () => adjustTime('longBreakTime', -1));
+    document.getElementById('longBreakPlus').addEventListener('click', () => adjustTime('longBreak', 1));
+    document.getElementById('longBreakMinus').addEventListener('click', () => adjustTime('longBreak', -1));
 });
