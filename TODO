@@ -1,0 +1,25 @@
+// STARTING 22-Dec-2025
+
+// TODO 1[]: Make the Pause/Play one button.
+
+// TODO 2[]: Fix bugs with progress wheel.
+    // It will show as the II quadrant and move
+    // counter-clockwise.
+
+// TODO 3[]: Make a "Settings" button and gearwheel
+    // to allow the user have named pre-sets for...
+    // work, break, and longbreak times.
+
+// TODO 4[]: Fix bug where the completed time uses
+    // entire 25 min. period. It should only use
+    // the time used up.
+
+// TODO 5[]: Give visual clarity to show how many
+    // more Pomodoros till the longBreak.
+
+// TODO 6[]: Add Exp. Bar and Necromancy Chibi for
+    // a fun design.
+
+// TODO 7[]: Create a calendar to show how many
+    // Pomodoros the user did in a week/month, etc.
+// TODO X[]:
